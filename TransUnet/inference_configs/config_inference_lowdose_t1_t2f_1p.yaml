@@ -1,0 +1,61 @@
+
+# -----------------------------------
+# Use for inference.py to predict PET directly from MRIs in nifti
+
+# when setting is_template: True, each MRI should be first register to T1 and then transformed to the template space leading to size of 157,189,156 
+# otherwise, each MRI should be first register to T1 and then register to PET
+#  -----------------------------------
+
+gpu: '2'
+load_yaml: False
+
+model_type: 'TransUNET'
+
+test_cases_dir: '/data/jiaqiw01/preprocessed_cases/'
+# test_cases_list: ['*']   # test on all cases in the folder
+# test_cases_list: ['Fdg_Stanford_029']
+test_cases_list: [
+        "25609",
+        "24622",
+        "24670",
+        "24625",
+        "25131",
+        "24532",
+        "25182",
+        "24345",
+        "25013",
+        "25074"
+        ]
+test_save_dir: '/data/jiaqiw01/all_exp_test_ten_subj/TransUnet/t1_0.3p_no_reslice'
+brain_mask_path: '/data/jiahong/fdg-zerodose/data/tpm_mask_new.nii'
+is_template: False  # whether on template space or raw space
+
+# contrast_list: ['T1', 'T2_FLAIR', 'PET_1p']
+# contrast_name_list: ['r2PET_T1*', 'r2PET_r2T1_T2_FLAIR*', 'PET_1p']
+
+contrast_list: ['T1', 'PET_0.3p']
+contrast_name_list: ['r2PET_T1*', 'PET_0.3p']
+
+target_contrast: 'PET'
+target_contrast_name: 'reslice_PET_full'    # name searching for PET
+
+# raw space
+pretrained_ckpt_path: '/data/jiaqiw01/PET_MRI/experiments/trans-UNET/ckpt/ZeroDose_rawspace/Simple/2024_12_21_10_56_t1_0.3p_no_reslice/model_best.pth.tar'
+# pretrained_ckpt_path: '/data/jiaqiw01/PET_MRI/experiments/trans-UNET/ckpt/ZeroDose_rawspace/Simple/2024_12_19_21_22_t1_t2f_1p_no_reslice/model_best.pth.tar'
+# pretrained_ckpt_path: '/data/jiaqiw01/PET_MRI/experiments/trans-UNET/ckpt/ZeroDose_rawspace/Simple/2024_12_19_11_15_t1_1p_no_reslice/model_best.pth.tar'
+
+
+data_h5_path: '../../data/all_cases_rawspace_complete_mean_no_reslice.h5'
+data_norm_h5_path: '../../data/all_cases_rawspace_complete_mean_std_norm_no_reslice.h5'
+
+norm_type: 'mean'
+block_size: 1
+out_num_ch: 1
+is_transformer: True
+is_symmetry: False
+
+input_height: 256
+input_width: 256
+dropoff: False
+skull_strip: False
+
