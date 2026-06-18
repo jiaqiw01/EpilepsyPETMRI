@@ -1,3 +1,1 @@
-!#/bin/bash
-
 python main.py --config ./training_configs/xxx --gpu 0
