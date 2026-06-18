@@ -1,0 +1,3 @@
+path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/guided_p_uncond/vpsde_t1_t2f_1p_2_pet_beta_max_5/version_0 # change this
+ema: True
+name: vpsde_image_scale_guided_t1_t2f_1p

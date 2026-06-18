@@ -1,0 +1,32 @@
+hydra: 
+  run:
+    dir: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/sampling/${score_based_model.name}/${sampling.name}/${now:%Y-%m-%d-%H-%M-%S}
+  sweep:
+    dir: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/sampling/${score_based_model.name}/${sampling.name}/${now:%Y-%m-%d-%H-%M-%S}
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - dataset.name
+          - sampling.name
+          - sampling
+          - score_based_model.name
+          - score_based_model
+
+defaults:
+  - _self_
+  - dataset: PETMR
+  - score_based_model: vpsde_image_scale_guided_t1_t2f
+  - sampling: dds
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+seed: 42
+num_images: 1
+device: cuda:2
+dump_path: null
+nii_save_path: /data/jiaqiw01/all_exp_test_new/SGM_VPSDE_t1_t2f_zerodose_3slice # change this
+corrector_steps: 1
+contrast: ['T1', 'T2_FLAIR'] # change this
+ema_ckpt: ema_model_130.pt # change this
+model_ckpt: model_130.pt # change this
+t2f_model_path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/guided_p_uncond/vpsde_t2f_2_pet_zerodose/version_3 # change this

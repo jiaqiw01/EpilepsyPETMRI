@@ -1,0 +1,51 @@
+seed: 42
+num_images: 1
+device: cuda:1
+dump_path: null
+nii_save_path: /data/jiaqiw01/all_exp_tests/score_vpsde_dds_correct3
+corrector_steps: 3
+dataset:
+  name: PETMR
+  base_path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/src/brainweb_2d
+  img_xy_dim: 256
+  img_z_dim: 1
+score_based_model:
+  path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/guided_p_uncond/vpsde/version_2
+  ema: false
+  name: vpsde_image_scale_guided
+sampling:
+  name: dds
+  num_steps: 50
+  stochasticity: 0.1
+  eps: 0.1
+  penalty: 0.1
+  pct_chain_elapsed: 0
+  num_img_log: 10
+  log_freq: 10
+  batch_size: 1
+  beta_unit: false
+  add_corrector: true
+  guidance_strength: 0.3
+  use_osem_nll: false
+
+Getting a SDE...
+vpsde
+load score model from path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/guided_p_uncond/vpsde/version_2
+model.pt
+Score model loaded...
+Normalisation type:  image_scale
+Total training slices: 356
+Length of test loader:  356
+Total training slices: 356
+Saving nifti file for subj ('25013',).....
+(256, 256, 89)
+Nifti saved at /data/jiaqiw01/all_exp_tests/score_vpsde_dds_correct3/25013_pred.nii
+Saving nifti file for subj ('25120',).....
+(256, 256, 89)
+Nifti saved at /data/jiaqiw01/all_exp_tests/score_vpsde_dds_correct3/25120_pred.nii
+Saving nifti file for subj ('25074',).....
+(256, 256, 89)
+Nifti saved at /data/jiaqiw01/all_exp_tests/score_vpsde_dds_correct3/25074_pred.nii
+Saving nifti file for subj ('25131',).....
+(256, 256, 89)
+Nifti saved at /data/jiaqiw01/all_exp_tests/score_vpsde_dds_correct3/25131_pred.nii

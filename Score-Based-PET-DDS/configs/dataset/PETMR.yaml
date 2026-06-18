@@ -1,0 +1,4 @@
+name: PETMR
+base_path: /data/jiaqiw01/PET_MRI/experiments/Score-Based-PET-DDS/src/brainweb_2d
+img_xy_dim: 256
+img_z_dim: 1
