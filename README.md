@@ -5,8 +5,30 @@ Code repo for paper "Score-based generative diffusion models to synthesize full-
 
 It may be easier for you to go to the original repo for SGM models and adapt them to your needs :)
 
-# Notes
+# Data Preparation
 - Our volumes **do not** use template. We co-register all MRI volumes to PET volume with shape 89, 256, 256. The top 20 and last 20 slices are almost empty and noisy.
+- Please have your PET volumes in 1.17mm, 1.17mm, 2.78mm and coregister T1/T2 to PET
+- Save your PET/MRI volumes into a big H5 file for faster data loading, don't forget to normalize to 0-1 or -1-1 range:
+```text
+  dataset.h5
+  ├── subject_001
+  │   ├── t1
+  │   │   └── data
+  │   ├── t2
+  │   │   └── data
+  │   └── pet
+  │       └── data
+  ├── subject_002
+  │   ├── t1
+  │   │   └── data
+  │   ├── t2
+  │   │   └── data
+  │   └── pet
+  │       └── data
+  └── ...
+```
+- Run train_test_split.py such as `python train_test_split.py --src /data/PET_MRI/data/all_cases_rawspace_complete_max.h5 --dest ./train_test_split --contrast T1 PET --restart`
+- The train/val slice files will be generated
 
 # TransUnet
 - The default code loads volumes from .h5 files and uses keys such as 'T1', 'PET_QCLEAR' to index. It is best to only use the code from model.py/model_simple.py and use your own training pipeline
